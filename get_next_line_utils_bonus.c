@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    get_next_line_utils.c                             :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertass <gbertass@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/10 18:01:57 by gbertass          #+#    #+#             */
-/*   Updated: 2023/08/10 18:08:58 by gbertass         ###   ########.fr       */
+/*   Created: 2023/09/05 16:57:11 by gbertass          #+#    #+#             */
+/*   Updated: 2023/09/05 17:32:29 by gbertass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 	{
 		i++;
@@ -45,42 +47,44 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (j);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, const char *s2)
 {
-	int		i;
-	int		j;
-	char	*ss1;
-	char	*ss2;
-	char	*end;
+	size_t	i;
+	size_t	j;
+	char	*ptr;
 
 	i = 0;
 	j = 0;
-	ss1 = (char *) s1;
-	ss2 = (char *) s2;
-	end = (char *) malloc(sizeof(char) * (ft_strlen(ss1) + ft_strlen(ss2) + 1));
-	if (end == NULL)
+	ptr = (char *)malloc((sizeof(char const)) * (ft_strlen(s1)
+				+ ft_strlen(s2) + 1));
+	if (ptr == NULL)
 		return (NULL);
-	while (ss1[i] != '\0')
-	{	
-		end[i] = ss1[i];
-		i++;
-	}
-	while (ss2[j] != '\0')
+	if (s1)
 	{
-		end[i + j] = ss2[j];
-		j++;
+		while (s1[i] != '\0')
+		{
+			ptr[i] = s1[i];
+			i++;
+		}
 	}
-	end[i + j] = '\0';
-	return (end);
+	while (s2[j] != '\0')
+	{
+		ptr[i++] = s2[j++];
+	}
+	ptr[i] = '\0';
+	free (s1);
+	return (ptr);
 }
 
 char	*ft_strchr(const char *s, int c)
-{	
+{
 	unsigned int	i;
 	const char		*str;
 
 	str = s;
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (str[i] != '\0')
 	{
 		if ((unsigned char)str[i] == (unsigned char)c)

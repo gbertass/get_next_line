@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertass <gbertass@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/10 17:49:55 by gbertass          #+#    #+#             */
-/*   Updated: 2023/09/05 17:55:44 by gbertass         ###   ########.fr       */
+/*   Created: 2023/09/05 16:51:13 by gbertass          #+#    #+#             */
+/*   Updated: 2023/09/05 17:59:19 by gbertass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_file(int fd, char *stt)
 {
@@ -27,7 +27,7 @@ static char	*read_file(int fd, char *stt)
 		if (len < 0)
 		{
 			free(stt);
-			free(buff);
+			free (buff);
 			return (NULL);
 		}
 		buff[len] = '\0';
@@ -37,7 +37,7 @@ static char	*read_file(int fd, char *stt)
 	return (stt);
 }
 
-static char	*read_line(char *stt)
+char	*read_line(char *stt)
 {
 	char	*line;
 	size_t	n;
@@ -57,7 +57,7 @@ static char	*read_line(char *stt)
 	return (line);
 }
 
-static char	*del_line(char *stt)
+char	*del_line(char *stt)
 {
 	char	*new;
 	int		i;
@@ -85,30 +85,28 @@ static char	*del_line(char *stt)
 
 char	*get_next_line(int fd)
 {
-	static char		*stt;
+	static char		*stt[FILE_MAX];
 	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd >= FILE_MAX)
 		return (NULL);
-	stt = read_file(fd, stt);
-	if (!stt)
+	stt[fd] = read_file(fd, stt[fd]);
+	if (!stt[fd])
 		return (NULL);
-	line = read_line(stt);
-	stt = del_line(stt);
+	line = read_line(stt[fd]);
+	stt[fd] = del_line(stt[fd]);
 	return (line);
 }
-
 int	main()
 {
 	int	a = open("file1.txt", O_RDONLY);
 	printf("%d\n", a);
 	printf("%s", get_next_line(a));
-	printf("%s", get_next_line(a));
-	printf("%s", get_next_line(a));
-	printf("%s", get_next_line(a));
-	printf("%s\n", get_next_line(a));
-	
+
 	int	b = open("file2.txt", O_RDONLY);
 	printf("%d\n", b);
+	printf("%s", get_next_line(b));
+
+	printf("%s", get_next_line(a));
 	printf("%s", get_next_line(b));
 }

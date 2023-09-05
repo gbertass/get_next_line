@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertass <gbertass@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/10 17:43:25 by gbertass          #+#    #+#             */
-/*   Updated: 2023/09/05 17:47:03 by gbertass         ###   ########.fr       */
+/*   Created: 2023/09/05 16:54:46 by gbertass          #+#    #+#             */
+/*   Updated: 2023/09/05 17:47:15 by gbertass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# endif
+
+# ifndef FILE_MAX
+#  define FILE_MAX 10000
 # endif
 
 # include <unistd.h>
@@ -22,7 +26,6 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/types.h>
-
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);

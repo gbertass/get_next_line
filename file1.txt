@@ -1,0 +1,4 @@
+Essa e a linha 1 do ficheiro 1
+Essa e a linha 2 do ficheiro 1
+Essa e a linha 3 do ficheiro 1
+Essa e a linha 4 do ficheiro 1
